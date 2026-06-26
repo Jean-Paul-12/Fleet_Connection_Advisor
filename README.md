@@ -82,9 +82,9 @@ fleet-connection-advisor/
 │   ├── supabase/
 │   │   └── schema.sql           # DDL para Supabase
 │   ├── requirements.txt
-│   ├── render.yaml              # Deploy backend en Render
-│   └── .env.example
-├── frontend/
+│   ├── requirements.txt
+│   └── supabase/schema.sql
+├── render.yaml                  # Deploy backend en Render (raíz del repo)
 │   ├── src/
 │   │   ├── api/                 # Cliente HTTP (advisorApi.js)
 │   │   ├── components/
@@ -257,13 +257,13 @@ La arquitectura recomendada es **frontend en Vercel** + **backend en Render**:
 | Componente | Plataforma | Archivo de config |
 |------------|------------|-------------------|
 | Frontend React | [Vercel](https://vercel.com) | [`frontend/vercel.json`](frontend/vercel.json) |
-| Backend Flask | [Render](https://render.com) | [`backend/render.yaml`](backend/render.yaml) |
+| Backend Flask | [Render](https://render.com) | [`render.yaml`](render.yaml) |
 | Supabase | Ya en la nube | — |
 
 ### Backend en Render
 
 1. Conecta tu repo en Render → **New Blueprint** o **Web Service**.
-2. Render detecta `backend/render.yaml`.
+2. Render detecta `render.yaml` en la raíz del repo (con `rootDir: backend`).
 3. Configura las variables secretas en el dashboard:
    - `SUPABASE_URL`
    - `SUPABASE_SERVICE_ROLE_KEY`
