@@ -1,66 +1,47 @@
-# --- Secrets (never commit) ---
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Secrets
 .env
 .env.*
 !.env.example
 
-# --- Local frontend (separate repo / Vercel project) ---
-frontend/
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
-# --- Python / Backend ---
-backend/venv/
-backend/.venv/
-backend/__pycache__/
-backend/**/__pycache__/
-backend/**/*.py[cod]
-backend/**/*$py.class
-backend/**/*.so
-backend/.pytest_cache/
-backend/.mypy_cache/
-backend/.ruff_cache/
-backend/.coverage
-backend/htmlcov/
-backend/*.egg-info/
-backend/dist/
-backend/build/
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
 
-# --- Node (ignored local frontend copy only) ---
-frontend/node_modules/
-frontend/dist/
-frontend/dist-ssr/
-frontend/.vite/
-frontend/coverage/
-frontend/*.local
+# Type checkers & linters
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
 
-# --- Logs ---
+# Packaging
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+
+# Logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
 
-# --- OS ---
+# OS / IDE
 .DS_Store
-.DS_Store?
 Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# --- Editors / IDE ---
 .vscode/
-!.vscode/extensions.json
 .idea/
-*.swp
-*.swo
-*~
-.project
-.classpath
-.settings/
-
-# --- Cursor / local tooling ---
 .cursor/
 *.code-workspace
-
-# --- Misc ---
-*.bak
-*.tmp
-.cache/

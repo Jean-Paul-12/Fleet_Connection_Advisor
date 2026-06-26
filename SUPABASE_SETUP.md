@@ -7,7 +7,7 @@
    - `cities`
    - `weather_forecasts`
    - `fleet_advisor_results`
-3. **Archivo local:** `backend/.env` con tu `SUPABASE_URL`
+3. **Archivo local:** `.env` con tu `SUPABASE_URL`
 
 ## Diferencia importante: paso 2 de Supabase vs este proyecto
 
@@ -23,19 +23,10 @@ React (navegador) --> @supabase/supabase-js --> Supabase
 React (navegador) --> Flask API --> supabase-py --> Supabase
 ```
 
-Por eso **no necesitas** instalar `@supabase/supabase-js` en el frontend para que funcione el dashboard.
-
-| Qué pide Supabase (paso 2) | Qué usa nuestro proyecto |
-|----------------------------|--------------------------|
-| `VITE_SUPABASE_URL` en frontend | `SUPABASE_URL` en **backend/.env** |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` en frontend | `SUPABASE_SERVICE_ROLE_KEY` en **backend/.env** |
-| `utils/supabase.ts` en React | `app/infrastructure/clients/supabase_client.py` en Flask |
-| `supabase.from('todos').select()` en App | Repositorios Python (`city_repository`, etc.) |
-
-El frontend solo necesita:
+El frontend (repo aparte) solo necesita:
 
 ```env
-VITE_API_BASE_URL=http://localhost:5000/api
+VITE_API_BASE_URL=https://fleet-connection-advisor.onrender.com/api
 ```
 
 ## Qué te falta completar (1 paso)
@@ -44,7 +35,7 @@ En Supabase Dashboard:
 
 1. Ve a **Project Settings → API**
 2. Copia la clave **`service_role`** (secret, no la publishable)
-3. Pégala en `backend/.env`:
+3. Pégala en `.env`:
 
 ```env
 SUPABASE_SERVICE_ROLE_KEY=tu_service_role_key_aqui
@@ -57,32 +48,17 @@ También agrega tu `WEATHER_API_KEY` en el mismo archivo.
 ## Cómo probar que Supabase quedó conectado
 
 ```bash
-cd backend
+python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
+copy .env.example .env
 python -m app.main
 ```
 
-Luego en otra terminal:
-
-```bash
-cd frontend
-npm run dev
-```
-
-Abre `http://localhost:5173`, evalúa una ciudad y verifica en Supabase → **Table Editor** que aparezcan filas en las 3 tablas.
+Luego levanta el frontend desde su repositorio (`Fleet_Connection_Advisor_View`) y evalúa una ciudad.
 
 ## Seguridad (RLS)
 
-Las tablas tienen **RLS activado** en Supabase. Esto bloquea acceso directo desde el navegador con la clave `anon`/`publishable`.
+Las tablas tienen **RLS activado** en Supabase. El backend Flask usa `SUPABASE_SERVICE_ROLE_KEY`, que **bypasea RLS**.
 
-El backend Flask usa `SUPABASE_SERVICE_ROLE_KEY`, que **bypasea RLS**, así que la persistencia sigue funcionando con normalidad.
-
-```sql
--- Ya aplicado en el proyecto remoto y en backend/supabase/schema.sql
-ALTER TABLE public.cities ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.weather_forecasts ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.fleet_advisor_results ENABLE ROW LEVEL SECURITY;
-```
-
-Si en el futuro conectas Supabase directamente desde React, deberás crear políticas explícitas de lectura/escritura para el rol `authenticated`.
+Ver `supabase/schema.sql` para el DDL completo.
