@@ -27,7 +27,16 @@ def create_app() -> Flask:
     app = Flask(__name__)
     app.config["SETTINGS"] = settings
 
-    CORS(app, resources={r"/api/*": {"origins": settings.cors_allowed_origins}})
+    CORS(
+        app,
+        resources={
+            r"/api/*": {
+                "origins": settings.cors_allowed_origins,
+                "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+                "allow_headers": ["Content-Type", "Authorization"],
+            }
+        },
+    )
 
     supabase_client = get_supabase_client(settings)
     weather_client = WeatherApiClient(settings)

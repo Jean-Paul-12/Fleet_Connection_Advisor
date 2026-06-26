@@ -44,7 +44,10 @@ class Settings:
 
 @lru_cache
 def get_settings() -> Settings:
-    cors_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:5173")
+    cors_origins = os.getenv(
+        "CORS_ALLOWED_ORIGINS",
+        "http://localhost:5173,http://127.0.0.1:5173,https://fleet-connection-advisor-view.vercel.app",
+    )
     return Settings(
         flask_env=os.getenv("FLASK_ENV", "development"),
         flask_app=os.getenv("FLASK_APP", "app.main"),

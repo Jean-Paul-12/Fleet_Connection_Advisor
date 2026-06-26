@@ -277,8 +277,11 @@ La arquitectura recomendada es **frontend en Vercel** + **backend en Render**:
 4. **Output Directory:** `dist`
 5. Variable de entorno:
    ```env
-   VITE_API_BASE_URL=https://tu-api.onrender.com/api
+   VITE_API_BASE_URL=/api
    ```
+   El archivo `frontend/vercel.json` hace proxy de `/api/*` hacia Render, así el navegador no necesita CORS cross-origin.
+
+   > Si usas la URL completa de Render (`https://...onrender.com/api`), debes configurar `CORS_ALLOWED_ORIGINS` en el backend con tu dominio de Vercel.
 
 ### Conectar ambos
 
@@ -312,7 +315,7 @@ Más detalle en [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md).
 | `Invalid API key` (clima) | Key incorrecta o proveedor mal configurado | Revisa `WEATHER_API_PROVIDER` y `WEATHER_API_BASE_URL` en `.env` |
 | Ciudades recientes vacías | Evaluate nunca completó | Confirma clima + Supabase; revisa logs del backend |
 | Error Supabase al guardar | Schema no aplicado o key inválida | Ejecuta `schema.sql`; verifica `SUPABASE_SERVICE_ROLE_KEY` |
-| CORS en navegador | Origen no permitido | Agrega `http://127.0.0.1:5173` y tu dominio de Vercel a CORS |
+| CORS en navegador | URL sin `/api` o origen no permitido | Usa `VITE_API_BASE_URL=/api` en Vercel (proxy); o agrega tu dominio Vercel a `CORS_ALLOWED_ORIGINS` en Render |
 | Render lento al inicio | Cold start (plan free) | Normal; espera ~30 s o usa plan pago |
 
 **Comandos útiles:**
