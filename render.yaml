@@ -2,10 +2,9 @@ services:
   - type: web
     name: fleet-advisor-api
     runtime: python
-    rootDir: backend
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app.main:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    startCommand: gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     healthCheckPath: /api/health
     envVars:
       - key: FLASK_ENV
