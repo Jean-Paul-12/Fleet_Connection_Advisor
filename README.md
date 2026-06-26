@@ -66,7 +66,7 @@ MVP end-to-end para evaluar el **impacto climático en la conexión operativa de
 ## Estructura del proyecto
 
 ```text
-fleet-connection-advisor/
+Fleet_Connection_Advisor/        # Repositorio backend (GitHub)
 ├── backend/
 │   ├── app/
 │   │   ├── api/routes/          # Endpoints REST
@@ -83,17 +83,14 @@ fleet-connection-advisor/
 │   │   └── schema.sql           # DDL para Supabase
 │   ├── requirements.txt
 │   └── .env.example
-├── frontend/
-│   ├── src/
-│   │   ├── api/                 # Cliente HTTP (advisorApi.js)
-│   │   ├── components/
-│   │   └── pages/               # Dashboard principal
-│   ├── vercel.json              # Deploy frontend en Vercel
-│   └── .env.example
-├── render.yaml                  # Deploy backend en Render (raíz del repo)
-│   └── .env.example
-├── SUPABASE_SETUP.md            # Guía detallada de Supabase
+├── render.yaml                  # Deploy backend en Render
+├── wsgi.py                      # Entrypoint Gunicorn
+├── requirements.txt             # Wrapper para Render
+├── runtime.txt
+├── SUPABASE_SETUP.md
 └── README.md
+
+# El frontend vive en un repositorio/proyecto Vercel aparte (carpeta local `frontend/` no versionada aquí).
 ```
 
 ---

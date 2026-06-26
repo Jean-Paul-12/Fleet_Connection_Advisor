@@ -3,6 +3,9 @@
 .env.*
 !.env.example
 
+# --- Local frontend (separate repo / Vercel project) ---
+frontend/
+
 # --- Python / Backend ---
 backend/venv/
 backend/.venv/
@@ -20,7 +23,7 @@ backend/*.egg-info/
 backend/dist/
 backend/build/
 
-# --- Node / Frontend ---
+# --- Node (ignored local frontend copy only) ---
 frontend/node_modules/
 frontend/dist/
 frontend/dist-ssr/
