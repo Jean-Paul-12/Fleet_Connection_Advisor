@@ -82,14 +82,15 @@ fleet-connection-advisor/
 │   ├── supabase/
 │   │   └── schema.sql           # DDL para Supabase
 │   ├── requirements.txt
-│   ├── requirements.txt
-│   └── supabase/schema.sql
-├── render.yaml                  # Deploy backend en Render (raíz del repo)
+│   └── .env.example
+├── frontend/
 │   ├── src/
 │   │   ├── api/                 # Cliente HTTP (advisorApi.js)
 │   │   ├── components/
 │   │   └── pages/               # Dashboard principal
 │   ├── vercel.json              # Deploy frontend en Vercel
+│   └── .env.example
+├── render.yaml                  # Deploy backend en Render (raíz del repo)
 │   └── .env.example
 ├── SUPABASE_SETUP.md            # Guía detallada de Supabase
 └── README.md
