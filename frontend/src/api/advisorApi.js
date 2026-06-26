@@ -1,6 +1,15 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
+function normalizeApiBaseUrl(url) {
+  const value = url || '/api';
+  if (value.startsWith('/')) {
+    return value;
+  }
+  const trimmed = value.replace(/\/+$/, '');
+  return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
+}
+
+const API_BASE_URL = normalizeApiBaseUrl(import.meta.env.VITE_API_BASE_URL);
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -82,7 +91,9 @@ function getApiErrorMessage(error, fallback) {
     return error.response.data.error.message;
   }
   if (!error.response) {
-    return 'Unable to reach the backend API. Make sure it is running on port 5000.';
+    return import.meta.env.DEV
+      ? 'Unable to reach the backend API. Make sure it is running on port 5000.'
+      : 'Unable to reach the backend API. Check VITE_API_BASE_URL and CORS_ALLOWED_ORIGINS on the server.';
   }
   return fallback;
 }
